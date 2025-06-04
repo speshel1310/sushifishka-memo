@@ -36,6 +36,8 @@ class MemoryGame {
         // Отслеживаем закрытие страницы
         window.addEventListener('beforeunload', () => this.handlePageClose());
         
+        this.closePopupBtn = document.getElementById('close-popup-btn');
+        
         this.init();
         this.setupPromoCodeCopy();
         this.preloadImages();
@@ -145,6 +147,12 @@ class MemoryGame {
             
             this.restart();
         });
+        if (this.closePopupBtn) {
+            this.closePopupBtn.addEventListener('click', () => {
+                this.popupOverlay.classList.add('hidden');
+                this.sendMetric('popup_closed_by_cross');
+            });
+        }
     }
     
     setupPromoCodeCopy() {
